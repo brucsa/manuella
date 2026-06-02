@@ -13,7 +13,7 @@ const SEED = {
     { id: "i4", members: [{ name: "Duda Martins", status: "yes" }, { name: "Sofia Martins", status: "no" }], note: "A Sofia viaja nesse fim de semana 💙", at: Date.parse("2026-05-22"), confirmedAt: Date.parse("2026-05-23") },
   ],
   gifts: [
-    { id: "g1", title: "Cofre dos sonhos (PIX)", desc: "Ajude a Manu a realizar a viagem dos sonhos.", kind: "pix", value: "manu.15anos@email.com", claimedBy: "" },
+    { id: "g1", title: "Cofre dos sonhos (PIX)", desc: "Ajude a Manu a realizar a viagem dos sonhos.", kind: "pix", value: "493.930.538-47", claimedBy: "" },
     { id: "g2", title: "Wepink", desc: "Maquiagem e perfumaria.", kind: "link", value: "https://www.wepink.com.br", claimedBy: "" },
     { id: "g3", title: "Youcom", desc: "Moda jovem e estilosa.", kind: "link", value: "https://www.youcom.com.br", claimedBy: "" },
     { id: "g4", title: "Renner", desc: "Moda e lifestyle.", kind: "link", value: "https://www.lojasrenner.com.br", claimedBy: "" },
