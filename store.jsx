@@ -3,7 +3,7 @@
    Cada convite tem membros (titular + acompanhantes), cada um com status
    de confirmação: "pending" | "yes" | "no". Hook useStore() + helpers. */
 
-const STORE_KEY = "manu15_store_v2";
+const STORE_KEY = "manu15_store_v4";
 
 const SEED = {
   invites: [
@@ -14,9 +14,17 @@ const SEED = {
   ],
   gifts: [
     { id: "g1", title: "Cofre dos sonhos (PIX)", desc: "Ajude a Manu a realizar a viagem dos sonhos.", kind: "pix", value: "manu.15anos@email.com", claimedBy: "" },
-    { id: "g2", title: "Kit câmera instantânea", desc: "Para registrar cada momento mágico.", kind: "link", value: "https://exemplo.com/camera", claimedBy: "Helena Costa" },
-    { id: "g3", title: "Fone de ouvido sem fio", desc: "Trilha sonora do País das Maravilhas.", kind: "link", value: "https://exemplo.com/fone", claimedBy: "" },
-    { id: "g4", title: "Vale livraria", desc: "Mais histórias para colecionar.", kind: "link", value: "https://exemplo.com/livros", claimedBy: "" },
+    { id: "g2", title: "Wepink", desc: "Maquiagem e perfumaria.", kind: "link", value: "https://www.wepink.com.br", claimedBy: "" },
+    { id: "g3", title: "Youcom", desc: "Moda jovem e estilosa.", kind: "link", value: "https://www.youcom.com.br", claimedBy: "" },
+    { id: "g4", title: "Renner", desc: "Moda e lifestyle.", kind: "link", value: "https://www.lojasrenner.com.br", claimedBy: "" },
+    { id: "g5", title: "Riachuelo", desc: "Roupas e acessórios.", kind: "link", value: "https://www.riachuelo.com.br", claimedBy: "" },
+    { id: "g6", title: "C&A", desc: "Looks para todo dia.", kind: "link", value: "https://www.cea.com.br", claimedBy: "" },
+    { id: "g7", title: "O Boticário", desc: "Perfumes e beleza.", kind: "link", value: "https://www.boticario.com.br", claimedBy: "" },
+    { id: "g8", title: "Vivara", desc: "Joias e semijoias.", kind: "link", value: "https://www.vivara.com.br", claimedBy: "" },
+    { id: "g9", title: "Pandora", desc: "Berloques e joias.", kind: "link", value: "https://br.pandora.net", claimedBy: "" },
+    { id: "g10", title: "Zara", desc: "Moda contemporânea.", kind: "link", value: "https://www.zara.com/br", claimedBy: "" },
+    { id: "g11", title: "Adidas", desc: "Tênis e esportivo.", kind: "link", value: "https://www.adidas.com.br", claimedBy: "" },
+    { id: "g12", title: "Livraria Cultura", desc: "Mais histórias para colecionar.", kind: "link", value: "https://www.livrariacultura.com.br/", claimedBy: "" },
   ],
   messages: [
     { id: "m1", name: "Vovó Cida", text: "Minha netinha querida, que sua vida seja sempre um conto de fadas. Te amo!", at: Date.parse("2026-05-10") },

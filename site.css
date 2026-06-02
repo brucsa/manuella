@@ -23,6 +23,7 @@
 }
 .nav-links a:hover { color: var(--text); background: var(--surface); }
 .nav-tools { display: flex; align-items: center; gap: 10px; }
+@media (max-width: 600px) { .nav-tools .btn-silver { display: none; } }
 @media (max-width: 860px) { .nav-links { display: none; } }
 
 /* mode toggle */
@@ -34,6 +35,23 @@
   transition: transform 0.4s, border-color 0.3s, box-shadow 0.3s;
 }
 .mode-toggle:hover { border-color: var(--accent-hex); box-shadow: 0 0 20px -6px var(--accent-glow); transform: rotate(-18deg); }
+
+/* ---------- botão de música ---------- */
+.music-btn { color: var(--text); overflow: visible; }
+.music-btn:hover { transform: none; border-color: var(--accent-hex); box-shadow: 0 0 20px -6px var(--accent-glow); }
+.music-btn.playing { color: var(--accent-hex); border-color: var(--accent-hex); box-shadow: 0 0 22px -7px var(--accent-glow); }
+.music-btn .eq { display: inline-flex; align-items: flex-end; gap: 2.5px; height: 16px; }
+.music-btn .eq i { width: 3px; background: currentColor; border-radius: 2px; height: 6px; animation: eqBar 0.9s ease-in-out infinite; }
+.music-btn .eq i:nth-child(1) { animation-delay: 0s; }
+.music-btn .eq i:nth-child(2) { animation-delay: 0.25s; }
+.music-btn .eq i:nth-child(3) { animation-delay: 0.5s; }
+@keyframes eqBar { 0%, 100% { height: 5px; } 50% { height: 15px; } }
+/* convite ao primeiro clique */
+.music-btn.invite { animation: musicInvite 2.4s ease-in-out infinite; }
+@keyframes musicInvite {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50% { box-shadow: 0 0 0 6px transparent, 0 0 18px -4px var(--accent-glow); border-color: var(--accent-hex); }
+}
 
 /* ---------- HERO ---------- */
 .hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
@@ -116,7 +134,22 @@
 @media (max-width: 760px) { .about-grid { grid-template-columns: 1fr; } .about-portrait { order: -1; max-width: 380px; margin: 0 auto; } }
 
 /* ---------- EVENTO ---------- */
-.event-card { padding: clamp(28px, 5vw, 50px); }
+.event-card { padding: clamp(28px, 5vw, 50px); position: relative; overflow: hidden; }
+
+/* coelho atrasado correndo com o relógio */
+.rabbit-lane { position: absolute; left: 0; right: 0; top: 12px; height: 36px; pointer-events: none; z-index: 3; }
+.rabbit-runner { position: absolute; top: 0; left: -90px; display: flex; align-items: center; gap: 4px; color: var(--silver-1); filter: drop-shadow(0 0 9px var(--accent-glow)); animation: rabbitDash 12s cubic-bezier(.45,0,.55,1) infinite; }
+@keyframes rabbitDash {
+  0% { left: -90px; opacity: 0; }
+  5% { opacity: 1; }
+  46% { opacity: 1; }
+  50% { left: calc(100% + 40px); opacity: 1; }
+  51%, 100% { left: calc(100% + 40px); opacity: 0; }
+}
+.rr-rabbit { display: inline-flex; transform-origin: 50% 100%; animation: hopRun .42s ease-in-out infinite; }
+@keyframes hopRun { 0%, 100% { transform: translateY(0) rotate(8deg); } 50% { transform: translateY(-9px) rotate(14deg); } }
+.rr-watch { display: inline-flex; color: var(--accent-hex); transform-origin: 50% 0; animation: watchSwing .42s ease-in-out infinite; }
+@keyframes watchSwing { 0%, 100% { transform: rotate(18deg); } 50% { transform: rotate(-12deg); } }
 .countdown { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 3vw, 22px); margin: 8px 0 30px; }
 .cd-cell { text-align: center; min-width: 64px; }
 .cd-num {
@@ -147,28 +180,86 @@
 .dress-aside { display: flex; flex-direction: column; gap: 14px; }
 .dress-aside .line { display: flex; align-items: center; gap: 14px; color: var(--text-dim); font-size: 0.98rem; }
 .dress-aside .line .ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--border); color: var(--accent-hex); flex: none; }
+
+/* cartola do Chapeleiro fazendo reverência */
+.hatter-bow { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding-bottom: 16px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
+.tophat { color: var(--silver-2); transform-origin: 40% 84%; animation: hatBow 5.5s cubic-bezier(.45,.05,.3,1) infinite; filter: drop-shadow(0 7px 16px rgba(0,0,0,.45)); }
+@keyframes hatBow {
+  0%, 52%, 100% { transform: rotate(0deg) translateY(0); }
+  64% { transform: rotate(-27deg) translateY(4px); }
+  80% { transform: rotate(-27deg) translateY(4px); }
+  92% { transform: rotate(0deg) translateY(0); }
+}
+.hatter-cap { font-family: var(--font-display); font-style: italic; font-size: 0.98rem; color: var(--text-dim); max-width: 22ch; }
 @media (max-width: 760px) { .dress { grid-template-columns: 1fr; } }
 
 /* ---------- PRESENTES ---------- */
-.gift-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
-.gift {
-  padding: 24px; display: flex; flex-direction: column; gap: 12px; position: relative;
-  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; overflow: hidden;
+/* ---------- PRESENTES ---------- */
+/* baralho de presentes (PIX + lojas no mesmo padrão) */
+.deck-block { }
+.deck-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+
+.play-card {
+  position: relative; aspect-ratio: 3 / 4.2; padding: 14px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  text-align: center; text-decoration: none; color: var(--text);
+  font-family: var(--font-ui); cursor: pointer;
+  background: linear-gradient(168deg, var(--surface-2), var(--surface));
+  border: 1px solid var(--border); border-radius: 16px;
+  box-shadow: 0 10px 26px -18px rgba(0,0,0,0.6);
+  transition: transform 0.35s cubic-bezier(.2,.8,.2,1), box-shadow 0.35s, border-color 0.35s;
+  transform: rotate(calc((var(--i) - 4.5) * 0.55deg));
+  overflow: hidden;
 }
-.gift:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: 0 0 30px -10px var(--accent-glow); }
-.gift .suit { position: absolute; top: -10px; right: -8px; color: var(--accent-soft); opacity: 0.6; }
-.gift .gift-kind { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent-hex); }
-.gift h4 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; }
-.gift p { color: var(--text-dim); font-size: 0.94rem; flex: 1; }
-.gift .gift-foot { margin-top: 6px; }
-.gift.claimed { opacity: 0.62; }
-.gift .claimed-tag { font-size: 0.74rem; color: var(--text-faint); display: flex; align-items: center; gap: 7px; }
+.play-card::after { content: ""; position: absolute; inset: 5px; border: 1px solid var(--border); border-radius: 11px; pointer-events: none; opacity: 0.5; }
+.play-card:hover { transform: translateY(-8px) rotate(0deg) scale(1.03); border-color: var(--accent-hex); box-shadow: 0 18px 40px -16px var(--accent-glow); z-index: 2; }
+/* carta do PIX — leve acento, mas mesmo formato */
+.pc-pix { background: linear-gradient(168deg, var(--accent-soft), var(--surface)); border-color: var(--accent-glow); }
+.pc-pix .pc-go { opacity: 1; transform: none; color: var(--accent-hex); }
+.pc-pix.ok { border-color: var(--accent-hex); box-shadow: 0 0 26px -10px var(--accent-glow); }
+.pc-index { position: absolute; display: flex; flex-direction: column; align-items: center; line-height: 1; color: var(--suit-red); font-family: var(--font-display); }
+.pc-index b { font-size: 0.92rem; font-weight: 600; }
+.pc-index.tl { top: 9px; left: 10px; }
+.pc-index.br { bottom: 9px; right: 10px; transform: rotate(180deg); }
+.pc-center { color: var(--suit-red-soft); margin-bottom: 2px; }
+.play-card:hover .pc-center { color: var(--suit-red); }
+.pc-name { font-family: var(--font-display); font-size: 1.18rem; font-weight: 500; line-height: 1.1; }
+.pc-desc { font-size: 0.74rem; color: var(--text-dim); line-height: 1.3; max-width: 16ch; }
+.pc-go { margin-top: 7px; display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; letter-spacing: 0.04em; color: var(--accent-hex); opacity: 0; transform: translateY(4px); transition: opacity 0.3s, transform 0.3s; }
+.play-card:hover .pc-go { opacity: 1; transform: none; }
+
+/* mobile: baralho vira carrossel horizontal */
+@media (max-width: 640px) {
+  .deck-grid {
+    display: flex; grid-template-columns: none; gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 6px 22px 14px; margin: 0 -22px;
+    scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+  }
+  .deck-grid::-webkit-scrollbar { display: none; }
+  .play-card { flex: 0 0 46%; max-width: 200px; scroll-snap-align: start; transform: none; }
+  .pc-go { opacity: 1; transform: none; }
+  .pf-btn { width: 100%; }
+}
 
 /* ---------- MURAL ---------- */
 .mural-layout { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: clamp(24px, 4vw, 44px); align-items: start; }
 .mural-layout > * { min-width: 0; }
 .mural-form { padding: clamp(26px, 4vw, 38px); position: sticky; top: 90px; }
 .mural-carousel { display: flex; flex-direction: column; gap: 14px; }
+/* lista vertical de recados (desktop) + carrossel no mobile */
+.mural-list { display: flex; flex-direction: column; gap: 14px; }
+@media (max-width: 640px) {
+  .mural-list {
+    flex-direction: row; gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 4px 22px 12px; margin: 0 -22px;
+    scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .mural-list::-webkit-scrollbar { display: none; }
+  .mural-list .mural-msg { flex: 0 0 78%; max-width: 300px; scroll-snap-align: start; }
+}
 .carousel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .carousel-nav { display: flex; gap: 8px; }
 .car-arrow { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); font-size: 1.6rem; line-height: 1; cursor: pointer; display: grid; place-items: center; backdrop-filter: blur(var(--glass-blur)); transition: border-color .25s, box-shadow .25s, color .25s, transform .25s; }

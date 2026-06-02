@@ -23,7 +23,7 @@ function Nav({ theme, onToggleTheme, onDashboard }) {
   }, []);
   return (
     <nav className={"nav" + (scrolled ? " scrolled" : "")}>
-      <a href="#hero" className="nav-brand"><span className="brand-crest"><img src="assets/crest.png" alt="Brasão de Manu XV" /><Cheshire /></span> <span className="brand-word">Manu <span className="dot">·</span> <span className="serif-italic">XV</span></span></a>
+      <a href="#hero" className="nav-brand"><span className="brand-crest"><img src="assets/crest.png" alt="Brasão de Manu XV" style={{ objectFit: "fill", width: "60px", height: "60px" }} /><Cheshire /></span> <span className="brand-word"> <span className="dot"></span> <span className="serif-italic"></span></span></a>
       <div className="nav-links">
         <a href="#sobre">Sobre</a>
         <a href="#evento">Evento</a>
@@ -32,10 +32,11 @@ function Nav({ theme, onToggleTheme, onDashboard }) {
         <a href="#mural">Mural</a>
       </div>
       <div className="nav-tools">
+        <MusicButton />
         <button className="mode-toggle" onClick={onToggleTheme} aria-label="Alternar tema" title={theme === "dark" ? "Modo prata" : "Modo vinho"}>
           {theme === "dark" ? "☾" : "☀"}
         </button>
-        <a href="#rsvp" className="btn btn-silver" style={{ minHeight: 46, padding: "11px 20px" }}>Confirmar</a>
+        <a href="#rsvp" className="btn btn-silver" style={{ minHeight: 46, padding: "11px 20px", color: "rgb(18, 30, 57)" }}>Confirmar</a>
         <button className="mode-toggle" onClick={onDashboard} aria-label="Área da Manu" title="Área da Manu"><PocketWatch size={20} /></button>
       </div>
     </nav>);
@@ -92,6 +93,7 @@ function Event() {
           <p>Faltam poucos giros do ponteiro para a festa começar.</p>
         </div>
         <div className="event-card glass reveal d1 tilt">
+          <RabbitRunner />
           <Countdown target={EVENT.target} />
           <div className="event-meta">
             <div className="cell"><div className="k">Data</div><div className="v">{EVENT.dateLabel}<small>{EVENT.weekday}</small></div></div>
@@ -131,6 +133,7 @@ function DressCode() {
             </div>
           </div>
           <div className="dress-aside reveal d2">
+            <div className="hatter-bow"><TopHat size={84} /><span className="hatter-cap">O Chapeleiro lhe faz uma reverência</span></div>
             <div className="line"><span className="ic"><Sparkle size={18} /></span> Tons de prata, vinho e azul caem como uma luva.</div>
             <div className="line"><span className="ic"><CardSuit type="diamond" size={16} /></span> Evite branco — a noite é da aniversariante.</div>
             <div className="line"><span className="ic"><PocketWatch size={18} /></span> Chegue no horário; a magia não espera.</div>
@@ -142,57 +145,55 @@ function DressCode() {
 }
 
 /* ============== PRESENTES ============== */
+const SUITS = ["heart", "spade", "diamond", "club"];
+const RANKS = ["A", "K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2"];
+
 function Gifts() {
-  const [store, act] = useStore();
-  const [claiming, setClaiming] = uS(null);
-  const [name, setName] = uS("");
-  function confirmClaim() {
-    if (!name.trim()) return;
-    act.claimGift(claiming.id, name.trim());
-    showToast("Obrigada! Presente reservado 💙");
-    setClaiming(null);setName("");
+  const [store] = useStore();
+  const [copiedId, setCopiedId] = uS(null);
+
+  function copyPix(g) {
+    navigator.clipboard?.writeText(g.value);
+    setCopiedId(g.id);
+    showToast("Chave PIX copiada! 💙");
+    setTimeout(() => setCopiedId(null), 2400);
   }
+
   return (
     <section className="section" id="presentes">
       <div className="wrap">
         <div className="sec-head reveal">
           <Divider label="Lista de presentes" />
           <h2>Um mimo para a aniversariante</h2>
-          <p>Sua presença já é o maior presente — mas se quiser carinho extra, escolha abaixo.</p>
+          <p>Sua presença já é o maior presente — mas se quiser carinho extra, escolha uma carta.</p>
         </div>
-        <div className="gift-grid">
-          {store.gifts.map((g, i) =>
-          <div key={g.id} className={"gift glass reveal d" + (i % 3 + 1) + (g.claimedBy ? " claimed" : "")}>
-              <span className="suit"><CardSuit type={["heart", "spade", "diamond", "club"][i % 4]} size={64} /></span>
-              <span className="gift-kind">{g.kind === "pix" ? "Chave PIX" : "Sugestão"}</span>
-              <h4>{g.title}</h4>
-              <p>{g.desc}</p>
-              <div className="gift-foot">
-                {g.claimedBy ?
-              <span className="claimed-tag"><CardSuit type="heart" size={12} /> Reservado por {g.claimedBy}</span> :
-              g.kind === "pix" ?
-              <button className="btn btn-ghost btn-block" onClick={() => {navigator.clipboard?.writeText(g.value);showToast("Chave PIX copiada!");}}>Copiar chave PIX</button> :
 
-              <div style={{ display: "flex", gap: 8 }}>
-                    <a className="btn btn-ghost" style={{ flex: 1 }} href={g.value} target="_blank" rel="noopener">Ver loja</a>
-                    <button className="btn btn-silver" onClick={() => setClaiming(g)}>Reservar</button>
-                  </div>
-              }
-              </div>
-            </div>
-          )}
+        <div className="deck-block reveal d1">
+          <div className="deck-grid">
+            {store.gifts.map((g, i) => {
+              const isPix = g.kind === "pix";
+              const copied = copiedId === g.id;
+              const inner =
+                <>
+                  <span className="pc-index tl"><b>{RANKS[i % RANKS.length]}</b><CardSuit type={SUITS[i % 4]} size={13} /></span>
+                  <span className="pc-center"><CardSuit type={SUITS[i % 4]} size={30} /></span>
+                  <span className="pc-name">{g.title}</span>
+                  <span className="pc-desc">{g.desc}</span>
+                  <span className="pc-go">
+                    {isPix ? (copied ? "Copiada ✓" : "Copiar PIX") : "Visitar loja"}
+                    {!isPix &&
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    }
+                  </span>
+                  <span className="pc-index br"><b>{RANKS[i % RANKS.length]}</b><CardSuit type={SUITS[i % 4]} size={13} /></span>
+                </>;
+              return isPix ?
+                <button key={g.id} type="button" className={"play-card pc-pix" + (copied ? " ok" : "")} style={{ "--i": i }} onClick={() => copyPix(g)}>{inner}</button> :
+                <a key={g.id} className="play-card" href={g.value} target="_blank" rel="noopener" style={{ "--i": i }}>{inner}</a>;
+            })}
+          </div>
         </div>
       </div>
-      {claiming &&
-      <Modal title="Reservar presente" onClose={() => setClaiming(null)}>
-          <p className="muted" style={{ marginBottom: 18 }}>Você está reservando <strong style={{ color: "var(--text)" }}>{claiming.title}</strong>. Deixe seu nome para a Manu saber de quem veio o carinho.</p>
-          <div className="field" style={{ marginBottom: 18 }}>
-            <label>Seu nome</label>
-            <input className="input" value={name} onChange={(e) => setName(e.target.value)} placeholder="Como você assina o cartão?" autoFocus />
-          </div>
-          <button className="btn btn-silver btn-block" onClick={confirmClaim}>Confirmar reserva</button>
-        </Modal>
-      }
     </section>);
 
 }

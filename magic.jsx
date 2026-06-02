@@ -106,6 +106,34 @@ function PocketWatch({ size = 26 }) {
   );
 }
 
+/* ---------- Cartola do Chapeleiro (faz reverência) ---------- */
+function TopHat({ size = 80 }) {
+  return (
+    <svg className="tophat" width={size} height={size} viewBox="0 0 80 80" fill="none" aria-hidden="true">
+      <g className="th-body">
+        <rect x="27" y="8" width="26" height="38" rx="3" fill="currentColor" />
+        <rect x="24" y="34" width="32" height="7" rx="1.5" fill="var(--accent-hex)" />
+        <ellipse cx="40" cy="48" rx="33" ry="7" fill="currentColor" />
+        <ellipse cx="40" cy="46.5" rx="33" ry="7" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1" />
+        <rect x="50" y="12" width="9" height="6" rx="1" fill="none" stroke="var(--accent-hex)" strokeWidth="1.4" opacity="0.9" />
+        <text x="54.5" y="17" fontSize="5" fill="var(--accent-hex)" textAnchor="middle" fontFamily="serif">10/6</text>
+      </g>
+    </svg>
+  );
+}
+
+/* ---------- Cena: coelho atrasado correndo com o relógio ---------- */
+function RabbitRunner() {
+  return (
+    <div className="rabbit-lane" aria-hidden="true">
+      <div className="rabbit-runner">
+        <span className="rr-rabbit"><RabbitMark size={30} /></span>
+        <span className="rr-watch"><PocketWatch size={22} /></span>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- Card suit marks (cartas geométricas) ---------- */
 function CardSuit({ type = "heart", size = 16 }) {
   const p = {
@@ -252,7 +280,72 @@ function startTilt() {
   return () => { document.removeEventListener("pointermove", move); window.removeEventListener("blur", leave); };
 }
 
+/* ---------- Trilha sonora (tema da Alice) ---------- */
+function MusicButton() {
+  const audioRef = useRef(null);
+  const fadeRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [touched, setTouched] = useState(false);
+  const VOL = 0.55;
+
+  useEffect(() => {
+    const a = audioRef.current; if (!a) return;
+    a.volume = 0;
+    const t = parseFloat(localStorage.getItem("manu15_music_time") || "0");
+    if (t && isFinite(t)) { try { a.currentTime = t; } catch (e) {} }
+    const save = () => { try { localStorage.setItem("manu15_music_time", a.currentTime); } catch (e) {} };
+    a.addEventListener("timeupdate", save);
+    return () => a.removeEventListener("timeupdate", save);
+  }, []);
+
+  function fade(to, after) {
+    const a = audioRef.current; if (!a) return;
+    clearInterval(fadeRef.current);
+    const from = a.volume, steps = 22; let i = 0;
+    fadeRef.current = setInterval(() => {
+      i++; a.volume = Math.max(0, Math.min(1, from + (to - from) * (i / steps)));
+      if (i >= steps) { clearInterval(fadeRef.current); if (after) after(); }
+    }, 40);
+  }
+
+  function toggle() {
+    const a = audioRef.current; if (!a) return;
+    setTouched(true);
+    if (playing) {
+      fade(0, () => a.pause());
+      setPlaying(false);
+    } else {
+      const p = a.play();
+      if (p && p.then) p.then(() => { setPlaying(true); fade(VOL); }).catch(() => setPlaying(false));
+      else { setPlaying(true); fade(VOL); }
+    }
+  }
+
+  return (
+    <>
+      <audio ref={audioRef} src="assets/alice-theme.mp3" loop preload="auto" />
+      <button
+        className={"mode-toggle music-btn" + (playing ? " playing" : "") + (!touched ? " invite" : "")}
+        onClick={toggle}
+        aria-pressed={playing}
+        aria-label={playing ? "Pausar música" : "Tocar música"}
+        title={playing ? "Pausar trilha" : "Tocar o tema da Alice"}
+      >
+        {playing ? (
+          <span className="eq" aria-hidden="true"><i /><i /><i /></span>
+        ) : (
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 18V6l10-2v11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="6.5" cy="18" r="2.5" stroke="currentColor" strokeWidth="1.6" />
+            <circle cx="16.5" cy="15" r="2.5" stroke="currentColor" strokeWidth="1.6" />
+          </svg>
+        )}
+      </button>
+    </>
+  );
+}
+
 Object.assign(window, {
   startParticles, useReveals, Countdown, PocketWatch, CardSuit, Cheshire, RabbitMark, Sparkle, Divider,
-  sparkleBurst, startCursorTrail, startTilt,
+  sparkleBurst, startCursorTrail, startTilt, TopHat, RabbitRunner, MusicButton,
 });

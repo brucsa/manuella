@@ -17,6 +17,9 @@
   --wine: #7d1f3f;
   --wine-bright: #a32a52;
 
+  --suit-red: var(--silver-1);
+  --suit-red-soft: color-mix(in srgb, var(--silver-1) 32%, transparent);
+
   --particle-density: 1;
 }
 
