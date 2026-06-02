@@ -128,9 +128,18 @@ function DressCode() {
           </div>
           <div className="dress-aside reveal d2">
             <div className="hatter-bow"><TopHat size={84} /><span className="hatter-cap">O Chapeleiro lhe faz uma reverência</span></div>
-            <div className="line">✨ <strong>Cores Livres:</strong> O País das Maravilhas é feito de todas as cores. Escolha a sua favorita e sinta-se deslumbrante.</div>
-            <div className="line">🎩 <strong>Traje Esporte Fino:</strong> A medida perfeita de elegância e conforto para o nosso baile de gala.</div>
-            <div className="line">🕰️ <strong>A Magia não Espera:</strong> Chegue no horário para não perder nenhum instante desse capítulo especial.</div>
+            <div className="line">
+              <div className="line-head">✨ <strong>Cores Livres</strong></div>
+              <div className="line-body">O País das Maravilhas é feito de todas as cores. Escolha a sua favorita e sinta-se deslumbrante.</div>
+            </div>
+            <div className="line">
+              <div className="line-head">🎩 <strong>Traje Esporte Fino</strong></div>
+              <div className="line-body">A medida perfeita de elegância e conforto para o nosso baile de gala.</div>
+            </div>
+            <div className="line">
+              <div className="line-head">🕰️ <strong>A Magia não Espera</strong></div>
+              <div className="line-body">Chegue no horário para não perder nenhum instante desse capítulo especial.</div>
+            </div>
           </div>
         </div>
       </div>

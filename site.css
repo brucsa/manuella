@@ -178,8 +178,9 @@
 .dress-pal { display: flex; gap: 10px; margin-top: 26px; }
 .dress-pal .sw { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-strong); box-shadow: var(--shadow); }
 .dress-aside { display: flex; flex-direction: column; gap: 14px; }
-.dress-aside .line { display: flex; align-items: center; gap: 14px; color: var(--text-dim); font-size: 0.98rem; }
-.dress-aside .line .ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--border); color: var(--accent-hex); flex: none; }
+.dress-aside .line { display: flex; flex-direction: column; gap: 4px; color: var(--text-dim); font-size: 0.98rem; }
+.dress-aside .line .line-head { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: 1rem; }
+.dress-aside .line .line-body { padding-left: 2px; line-height: 1.5; }
 
 /* cartola do Chapeleiro fazendo reverência */
 .hatter-bow { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; padding-bottom: 16px; margin-bottom: 4px; border-bottom: 1px solid var(--border); }
