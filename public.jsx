@@ -121,22 +121,16 @@ function DressCode() {
         <div className="dress">
           <div className="dress-card glass reveal tilt">
             <span className="eyebrow">Dress code</span>
-            <div className="big display">Um verdadeiro <em>baile de gala</em></div>
+            <div className="big display">Elegância no <em>País das Maravilhas</em></div>
             <p className="muted" style={{ fontSize: "1.05rem", maxWidth: "42ch" }}>
-              Para tornar nossa noite mágica ainda mais especial, prepare-se para brilhar. Sugerimos o traje <strong style={{ color: "var(--text)" }}>Esporte Fino</strong> — elegância que combina com tapete de espelhos e luzes de prata.
+              Prepare-se para uma noite onde a sofisticação encontra a magia. Nosso encontro será um baile de gala inesquecível! Para embarcarmos juntos nessa atmosfera, pedimos a delicadeza do traje <strong style={{ color: "var(--text)" }}>Esporte Fino</strong>. Sinta-se livre para escolher sua paleta de cores favorita e traga sua melhor energia para essa noite de luzes e encantos.
             </p>
-            <div className="dress-pal">
-              <span className="sw" style={{ background: "linear-gradient(135deg,#f4f5f8,#c3c7d4)" }} title="Prata" />
-              <span className="sw" style={{ background: "linear-gradient(135deg,#1c0e18,#3a1830)" }} title="Vinho profundo" />
-              <span className="sw" style={{ background: "linear-gradient(135deg,#7fd3ec,#3a90ad)" }} title="Azul holográfico" />
-              <span className="sw" style={{ background: "linear-gradient(135deg,#0c0509,#241420)" }} title="Preto" />
-            </div>
           </div>
           <div className="dress-aside reveal d2">
             <div className="hatter-bow"><TopHat size={84} /><span className="hatter-cap">O Chapeleiro lhe faz uma reverência</span></div>
-            <div className="line"><span className="ic"><Sparkle size={18} /></span> Tons de prata, vinho e azul caem como uma luva.</div>
-            <div className="line"><span className="ic"><CardSuit type="diamond" size={16} /></span> Evite branco — a noite é da aniversariante.</div>
-            <div className="line"><span className="ic"><PocketWatch size={18} /></span> Chegue no horário; a magia não espera.</div>
+            <div className="line">✨ <strong>Cores Livres:</strong> O País das Maravilhas é feito de todas as cores. Escolha a sua favorita e sinta-se deslumbrante.</div>
+            <div className="line">🎩 <strong>Traje Esporte Fino:</strong> A medida perfeita de elegância e conforto para o nosso baile de gala.</div>
+            <div className="line">🕰️ <strong>A Magia não Espera:</strong> Chegue no horário para não perder nenhum instante desse capítulo especial.</div>
           </div>
         </div>
       </div>
