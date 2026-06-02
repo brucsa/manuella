@@ -1,28 +1,6 @@
 /* public.jsx — Site público dos 15 anos da Manu */
 const { useState: uS, useEffect: uE, useRef: uR } = React;
 
-let _tenorRequested = false;
-function TenorGif({ postId, aspectRatio, className, style }) {
-  uE(() => {
-    if (!_tenorRequested) {
-      _tenorRequested = true;
-      const s = document.createElement("script");
-      s.src = "https://tenor.com/embed.js";
-      s.async = true;
-      document.body.appendChild(s);
-    }
-  }, []);
-  return (
-    <div
-      className={"tenor-gif-embed" + (className ? " " + className : "")}
-      data-postid={postId}
-      data-share-method="host"
-      data-aspect-ratio={aspectRatio}
-      data-width="100%"
-      style={style}
-    />
-  );
-}
 
 const EVENT = {
   dateLabel: "03 de Abril de 2027",
@@ -116,7 +94,7 @@ function Event() {
           <p>Faltam poucos giros do ponteiro para a festa começar.</p>
         </div>
         <div className="event-card glass reveal d1 tilt">
-          <TenorGif postId="19326072" aspectRatio="0.684375" />
+          <RabbitRunner />
           <Countdown target={EVENT.target} />
           <div className="event-meta">
             <div className="cell"><div className="k">Data</div><div className="v">{EVENT.dateLabel}<small>{EVENT.weekday}</small></div></div>
@@ -150,9 +128,7 @@ function DressCode() {
             </p>
           </div>
           <div className="dress-aside reveal d2">
-            <div className="cheshire-wrap">
-              <TenorGif postId="16630951" aspectRatio="1" style={{ maxWidth: "160px", margin: "0 auto" }} />
-            </div>
+            <div className="hatter-bow"><TopHat size={84} /><span className="hatter-cap">O Chapeleiro lhe faz uma reverência</span></div>
             <div className="line">
               <div className="line-head">✨ <strong>Cores Livres</strong></div>
               <div className="line-body">O País das Maravilhas é feito de todas as cores. Escolha a sua favorita e sinta-se deslumbrante.</div>
