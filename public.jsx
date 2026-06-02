@@ -12,6 +12,7 @@ const EVENT = {
   target: Date.parse("2027-04-03T19:00:00-03:00")
 };
 const HERO_PHOTO = "assets/manu-hero.jpg";
+const PORTRAIT_PHOTO = "assets/manu-portrait.jpg";
 const fmtDate = (ts) => new Date(ts).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" });
 
 /* ============== NAV ============== */
@@ -76,7 +77,7 @@ function About() {
             <p>Nessa jornada de quinze anos, ela cresceu abraçando o mundo com a mesma curiosidade de Alice. Ela aprendeu que a magia acontece quando a gente ousa ser quem realmente é. Afinal, como diria o Chapeleiro: "As melhores pessoas são as loucas". E é exatamente essa essência única, brilhante e maravilhosa que vamos celebrar.</p>
             <p>Da menina cheia de energia à jovem que encara a vida de frente, chegou a hora do nosso baile de gala. Siga o coelho branco e venha viver essa noite com a gente!</p>
           </div>
-          <div className="about-portrait reveal d2"><img src={HERO_PHOTO} alt="Retrato da Manu" /></div>
+          <div className="about-portrait reveal d2"><img src={PORTRAIT_PHOTO} alt="Retrato da Manu" /></div>
         </div>
       </div>
     </section>);
