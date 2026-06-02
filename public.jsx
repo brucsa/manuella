@@ -1,6 +1,27 @@
 /* public.jsx — Site público dos 15 anos da Manu */
 const { useState: uS, useEffect: uE, useRef: uR } = React;
 
+function TenorGif({ postId, aspectRatio }) {
+  uE(() => {
+    const prev = document.querySelector('script[src*="tenor.com/embed"]');
+    if (prev) prev.remove();
+    const s = document.createElement("script");
+    s.src = "https://tenor.com/embed.js";
+    s.async = true;
+    document.body.appendChild(s);
+  }, []);
+  return (
+    <div
+      className="tenor-gif-embed"
+      data-postid={postId}
+      data-share-method="host"
+      data-aspect-ratio={aspectRatio}
+      data-width="100%"
+      style={{ maxWidth: "260px", margin: "0 auto 8px" }}
+    />
+  );
+}
+
 const EVENT = {
   dateLabel: "03 de Abril de 2027",
   weekday: "Sábado",
@@ -93,7 +114,7 @@ function Event() {
           <p>Faltam poucos giros do ponteiro para a festa começar.</p>
         </div>
         <div className="event-card glass reveal d1 tilt">
-          <RabbitRunner />
+          <TenorGif postId="19326072" aspectRatio="0.684375" />
           <Countdown target={EVENT.target} />
           <div className="event-meta">
             <div className="cell"><div className="k">Data</div><div className="v">{EVENT.dateLabel}<small>{EVENT.weekday}</small></div></div>
