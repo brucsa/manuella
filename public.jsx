@@ -1,23 +1,25 @@
 /* public.jsx — Site público dos 15 anos da Manu */
 const { useState: uS, useEffect: uE, useRef: uR } = React;
 
-function TenorGif({ postId, aspectRatio }) {
+let _tenorRequested = false;
+function TenorGif({ postId, aspectRatio, className, style }) {
   uE(() => {
-    const prev = document.querySelector('script[src*="tenor.com/embed"]');
-    if (prev) prev.remove();
-    const s = document.createElement("script");
-    s.src = "https://tenor.com/embed.js";
-    s.async = true;
-    document.body.appendChild(s);
+    if (!_tenorRequested) {
+      _tenorRequested = true;
+      const s = document.createElement("script");
+      s.src = "https://tenor.com/embed.js";
+      s.async = true;
+      document.body.appendChild(s);
+    }
   }, []);
   return (
     <div
-      className="tenor-gif-embed"
+      className={"tenor-gif-embed" + (className ? " " + className : "")}
       data-postid={postId}
       data-share-method="host"
       data-aspect-ratio={aspectRatio}
       data-width="100%"
-      style={{ maxWidth: "260px", margin: "0 auto 8px" }}
+      style={style}
     />
   );
 }
@@ -148,7 +150,9 @@ function DressCode() {
             </p>
           </div>
           <div className="dress-aside reveal d2">
-            <div className="hatter-bow"><TopHat size={84} /><span className="hatter-cap">O Chapeleiro lhe faz uma reverência</span></div>
+            <div className="cheshire-wrap">
+              <TenorGif postId="16630951" aspectRatio="1" style={{ maxWidth: "160px", margin: "0 auto" }} />
+            </div>
             <div className="line">
               <div className="line-head">✨ <strong>Cores Livres</strong></div>
               <div className="line-body">O País das Maravilhas é feito de todas as cores. Escolha a sua favorita e sinta-se deslumbrante.</div>
