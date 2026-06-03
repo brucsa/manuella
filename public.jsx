@@ -74,7 +74,7 @@ function About() {
           <div className="about-text reveal">
             <span className="eyebrow">Sobre a Manu</span>
             <p style={{ marginTop: 18 }}>Tem gente que lê histórias, e tem gente que vive intensamente cada uma delas. A Manu é as duas coisas. Nossa "garota dos livros" mostrou, desde pequenininha, ser uma verdadeira força: intensa, alegre e sempre disposta a sonhar acordada.</p>
-            <p>Nessa jornada de quinze anos, ela cresceu abraçando o mundo com a mesma curiosidade de Alice. Ela aprendeu que a magia acontece quando a gente ousa ser quem realmente é. Afinal, como diria o Chapeleiro: "As melhores pessoas são as loucas". E é exatamente essa essência única, brilhante e maravilhosa que vamos celebrar.</p>
+            <p>No sonho dos quinze anos, ela cresceu abraçando o mundo com a mesma curiosidade de Alice. Ela aprendeu que a magia acontece quando a gente ousa ser quem realmente é. Afinal, como diria o Chapeleiro: "As melhores pessoas são as loucas". E é exatamente essa essência única, brilhante e maravilhosa que vamos celebrar.</p>
             <p>Da menina cheia de energia à jovem que encara a vida de frente, chegou a hora do nosso baile de gala. Siga o coelho branco e venha viver essa noite com a gente!</p>
           </div>
           <div className="about-portrait reveal d2"><img src={PORTRAIT_PHOTO} alt="Retrato da Manu" /></div>
