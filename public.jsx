@@ -129,7 +129,7 @@ function DressCode() {
             </p>
           </div>
           <div className="dress-aside reveal d2">
-            <div className="hatter-bow"><TopHat size={84} /><span className="hatter-cap">O Chapeleiro lhe faz uma reverência</span></div>
+            <div className="hatter-bow"><TopHat size={84} /></div>
             <div className="line">
               <div className="line-head">✨ <strong>Cores Livres</strong></div>
               <div className="line-body">O País das Maravilhas é feito de todas as cores. Escolha a sua favorita e sinta-se deslumbrante.</div>
