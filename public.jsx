@@ -54,7 +54,7 @@ function Hero() {
         <div className="hero-eyebrow"><Sparkle size={13} /><span className="eyebrow">Manu faz 15 · 03.04.2027</span></div>
         <h1 className="hero-quote display">O segredo é rodear-se de pessoas que façam <em>sorrir o coração</em>.</h1>
         <p className="hero-sub">"E então, e só então, você estará no País das Maravilhas." Venha viver essa noite mágica comigo.</p>
-        <p className="hero-name">— com carinho, Manuela</p>
+        <p className="hero-name">— com carinho, Manu</p>
       </div>
       <a href="#sobre" className="scroll-cue">
         <span className="rabbit-pop"><RabbitMark size={26} /></span>
@@ -393,7 +393,7 @@ function Footer() {
     <footer className="foot">
       <img className="foot-crest" src="assets/crest.png" alt="Brasão de Manu · XV" />
       <Divider />
-      <p style={{ marginTop: 24, fontFamily: "var(--font-display)", fontSize: "1.4rem", color: "var(--text)" }}>Manuela · XV</p>
+      <p style={{ marginTop: 24, fontFamily: "var(--font-display)", fontSize: "1.4rem", color: "var(--text)" }}>Manu · XV</p>
       <p style={{ marginTop: 8, fontSize: "0.86rem" }}>{EVENT.dateLabel} · {EVENT.venue} · Osasco</p>
       <p style={{ marginTop: 18, fontSize: "0.78rem" }}>Feito com <span className="heart">♡</span> no País das Maravilhas</p>
     </footer>);
