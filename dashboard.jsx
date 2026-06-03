@@ -68,7 +68,7 @@ function Overview({ store, setTab }) {
           </div>
         );
       })}
-      {recent.length === 0 && <div className="empty">Ninguém respondeu ainda. Cadastre convidados na aba “Convidados”.</div>}
+      {recent.length === 0 && <div className={"empty"}>{"Ninguém respondeu ainda. Cadastre convidados na aba Convidados."}</div>}
     </div>
   );
 }
@@ -194,7 +194,7 @@ function GiftAdmin({ store, act }) {
           </div>
         ))}
       </div>
-      {store.gifts.length === 0 && <div className="empty">Nenhum presente cadastrado. Clique em “Adicionar presente”.</div>}
+      {store.gifts.length === 0 && <div className={"empty"}>{"Nenhum presente cadastrado. Clique em + Adicionar presente."}</div>}
 
       {editing && (
         <Modal title={editing === "new" ? "Novo presente" : "Editar presente"} onClose={() => setEditing(null)}>

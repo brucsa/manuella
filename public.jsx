@@ -355,7 +355,7 @@ function Rsvp() {
                   {results.length === 0 ?
               <div className="no-result">
                       <p>Não encontramos <strong>&ldquo;{query.trim()}&rdquo;</strong> na lista.</p>
-                      <p className=”muted”>Fale com a Manu</p>
+                      <p className={"muted"}>Fale com a Manu</p>
                     </div> :
 
               results.map((iv) => {
