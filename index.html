@@ -14,6 +14,19 @@
 </head>
 <body>
 <div id="root"></div>
+<div id="err" style="display:none;position:fixed;top:0;left:0;right:0;background:#c00;color:#fff;padding:16px;font:14px monospace;z-index:9999;white-space:pre-wrap;word-break:break-all;max-height:50vh;overflow:auto"></div>
+<script>
+window.onerror = function(msg, src, line, col, err) {
+  var d = document.getElementById('err');
+  d.style.display = 'block';
+  d.textContent += (src||'').split('/').pop() + ':' + line + ' — ' + msg + '\n';
+};
+window.addEventListener('unhandledrejection', function(e) {
+  var d = document.getElementById('err');
+  d.style.display = 'block';
+  d.textContent += 'Promise: ' + (e.reason && (e.reason.message || e.reason)) + '\n';
+});
+</script>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
