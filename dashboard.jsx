@@ -1,14 +1,15 @@
 /* dashboard.jsx — Área restrita da Manu (login + gestão) */
 const { useState: dS, useMemo: dM } = React;
 
-const DASH_PASS = "alice";
+const DASH_PASS = "BruTeAmo";
 
 function Login({ onOk, onBack }) {
   const [pass, setPass] = dS("");
+  const [showPass, setShowPass] = dS(false);
   const [err, setErr] = dS(false);
   function submit(e) {
     e.preventDefault();
-    if (pass.trim().toLowerCase() === DASH_PASS) onOk();
+    if (pass.trim() === DASH_PASS) onOk();
     else { setErr(true); }
   }
   return (
@@ -19,12 +20,11 @@ function Login({ onOk, onBack }) {
         <p className="muted" style={{ marginBottom: 22 }}>Entre com a senha mágica para gerenciar a festa.</p>
         <div className="field" style={{ textAlign: "left" }}>
           <label>Senha</label>
-          <input className="input" type="password" value={pass} onChange={(e) => { setPass(e.target.value); setErr(false); }} placeholder="••••••" autoFocus />
+          <div style={{ position: "relative", display: "flex", alignItems: "center" }}><input className="input" style={{ paddingRight: 52 }} type={showPass ? "text" : "password"} value={pass} onChange={(e) => { setPass(e.target.value); setErr(false); }} placeholder="••••••" autoFocus /><button type="button" onClick={() => setShowPass((v) => !v)} style={{ position: "absolute", right: 10, background: "none", border: "none", cursor: "pointer", color: "var(--accent-hex)", fontSize: "0.78rem", letterSpacing: "0.04em", padding: "4px 2px" }}>{showPass ? "Ocultar" : "Mostrar"}</button></div>
         </div>
         {err && <p className="login-err">Senha incorreta. Tente novamente.</p>}
         <button className="btn btn-silver btn-block" type="submit" style={{ marginTop: 18 }}>Entrar</button>
         <button type="button" className="btn btn-ghost btn-block" style={{ marginTop: 10 }} onClick={onBack}>← Voltar ao site</button>
-        <p className="login-hint">Dica de demonstração: a senha é <strong>alice</strong></p>
       </form>
     </div>
   );
