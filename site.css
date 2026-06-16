@@ -328,7 +328,7 @@
 .tilt { transition: transform 0.45s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; will-change: transform; }
 
 /* ============ Brasão / crest na marca ============ */
-.brand-crest { position: relative; display: inline-grid; place-items: center; width: 48px; height: 48px; flex: none; }
+.brand-crest { position: relative; display: inline-grid; place-items: center; width: 90px; height: 90px; flex: none; }
 .brand-only .brand-crest { width: 72px; height: 72px; }
 .brand-crest img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 3px 9px rgba(0,0,0,.4)); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
 .nav-brand:hover .brand-crest img { transform: scale(1.07) rotate(-2deg); }
@@ -341,7 +341,7 @@
 .cheshire .ch-eye, .cheshire .ch-teeth { opacity: 0; transition: opacity .3s .28s; }
 .nav-brand:hover .cheshire .ch-eye, .nav-brand:hover .cheshire .ch-teeth { opacity: 1; }
 @media (max-width: 520px) { .brand-only .brand-crest { width: 58px; height: 58px; } }
-@media (max-width: 520px) { .brand-crest { width: 40px; height: 40px; } }
+@media (max-width: 520px) { .brand-crest { width: 64px; height: 64px; } }
 
 /* ============ RSVP — busca ============ */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } }

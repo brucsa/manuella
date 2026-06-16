@@ -25,7 +25,7 @@ function Nav({ theme, onToggleTheme, onDashboard }) {
   }, []);
   return (
     <nav className={"nav" + (scrolled ? " scrolled" : "")}>
-      <a href="#hero" className="nav-brand"><span className="brand-crest"><img src="assets/crest.png" alt="Brasão de Manu XV" style={{ objectFit: "fill", width: "60px", height: "60px" }} /><Cheshire /></span> <span className="brand-word"> <span className="dot"></span> <span className="serif-italic"></span></span></a>
+      <a href="#hero" className="nav-brand"><span className="brand-crest"><img src="assets/crest.png" alt="Brasão de Manu XV" style={{ objectFit: "fill", width: "90px", height: "90px", filter: "drop-shadow(0 0 8px var(--accent-glow))" }} /><Cheshire /></span> <span className="brand-word"> <span className="dot"></span> <span className="serif-italic"></span></span></a>
       <div className="nav-links">
         <a href="#sobre">Sobre</a>
         <a href="#evento">Evento</a>
@@ -33,7 +33,7 @@ function Nav({ theme, onToggleTheme, onDashboard }) {
         <a href="#presentes">Presentes</a>
         <a href="#mural">Mural</a>
       </div>
-      <div className="nav-tools">
+      <div className="nav-tools">
         
         <a href="#rsvp" className="btn btn-silver" style={{ minHeight: 46, padding: "11px 20px", color: "rgb(18, 30, 57)" }}>Confirmar</a>
         <button className="mode-toggle" onClick={onDashboard} aria-label="Área da Manu" title="Área da Manu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></button>
