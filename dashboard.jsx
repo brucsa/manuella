@@ -259,13 +259,12 @@ function MsgAdmin({ store, act }) {
 
 function Dashboard({ theme, onToggleTheme, onExit }) {
   const [authed, setAuthed] = dS(() => sessionStorage.getItem("manu15_auth") === "1");
-  const [tab, setTab] = dS("overview");
+  const [tab, setTab] = dS("convidados");
   const [store, act] = useStore();
   function login() { sessionStorage.setItem("manu15_auth", "1"); setAuthed(true); }
   function logout() { sessionStorage.removeItem("manu15_auth"); setAuthed(false); onExit(); }
   if (!authed) return <div className="dash"><Login onOk={login} onBack={onExit} /></div>;
   const tabs = [
-    ["overview", "Visão geral", null],
     ["convidados", "Convidados", store.invites.length],
     ["presentes", "Presentes", store.gifts.length],
     ["mural", "Mural", store.messages.length],
@@ -274,8 +273,7 @@ function Dashboard({ theme, onToggleTheme, onExit }) {
     <div className="dash">
       <div className="dash-top">
         <div className="title"><img className="dash-crest" src="assets/crest.png" alt="" /> Painel da Manu <span className="dot">·</span> <span className="serif-italic">XV</span></div>
-        <div style={{ display: "flex", gap: 10 }}>
-          <button className="mode-toggle" onClick={onToggleTheme} aria-label="Tema">{theme === "dark" ? "☾" : "☀"}</button>
+        <div style={{ display: "flex", gap: 10 }}>
           <button className="btn btn-ghost" style={{ minHeight: 46, padding: "11px 18px" }} onClick={onExit}>Ver site</button>
           <button className="btn btn-ghost" style={{ minHeight: 46, padding: "11px 18px" }} onClick={logout}>Sair</button>
         </div>
@@ -287,8 +285,7 @@ function Dashboard({ theme, onToggleTheme, onExit }) {
           </button>
         ))}
       </div>
-      <div className="dash-body">
-        {tab === "overview" && <Overview store={store} setTab={setTab} />}
+      <div className="dash-body">
         {tab === "convidados" && <Guests store={store} act={act} />}
         {tab === "presentes" && <GiftAdmin store={store} act={act} />}
         {tab === "mural" && <MsgAdmin store={store} act={act} />}
