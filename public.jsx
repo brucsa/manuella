@@ -165,8 +165,8 @@ function Gifts() {
     <section className="section" id="presentes">
       <div className="wrap">
         <div className="sec-head reveal">
-          <Divider label="Lista de presentes" />
-          <h2>Sugestão de mimos</h2>
+          <Divider label="Sugestão de presentes" />
+          <h2>Um mimo para a aniversariante</h2>
           <p>Sua presença já é o maior presente — mas se quiser carinho extra, escolha uma carta.</p>
         </div>
 
