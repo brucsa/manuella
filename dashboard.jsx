@@ -73,19 +73,41 @@ function Overview({ store, setTab }) {
   );
 }
 
+function exportCSV(invites) {
+  var rows = [["Convite","Nome","Faixa","Status","Observacao","Confirmado em"]];
+  invites.forEach(function(iv) {
+    var lead = iv.members.length > 0 ? iv.members[0].name + (iv.members.length > 1 ? " +" + (iv.members.length - 1) : "") : "";
+    iv.members.forEach(function(m) {
+      rows.push([lead, m.name, m.faixa === "livre" ? "< 10 anos (nao paga)" : "Pagante",
+        m.status === "yes" ? "Vai" : m.status === "no" ? "Nao vai" : "Aguardando",
+        iv.note || "",
+        iv.confirmedAt ? new Date(iv.confirmedAt).toLocaleDateString("pt-BR") : "nao respondeu"
+      ]);
+    });
+  });
+  var csv = rows.map(function(r) { return r.join(";"); }).join("\n");
+  var blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "convidados-manu15.csv";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
 function Guests({ store, act }) {
-  const [members, setMembers] = dS([""]);   // [titular, acompanhante, ...]
+  const [members, setMembers] = dS([""]);
+  const [faixas, setFaixas] = dS(["pagante"]);
   const [note, setNote] = dS("");
 
   function setMember(i, v) { setMembers((arr) => arr.map((m, idx) => (idx === i ? v : m))); }
-  function addMember() { setMembers((arr) => [...arr, ""]); }
-  function removeMember(i) { setMembers((arr) => arr.length > 1 ? arr.filter((_, idx) => idx !== i) : arr); }
+  function setFaixa(i, v) { setFaixas((arr) => arr.map((f, idx) => (idx === i ? v : f))); }
+  function addMember() { setMembers((arr) => [...arr, ""]); setFaixas((arr) => [...arr, "pagante"]); }
+  function removeMember(i) { setMembers((arr) => arr.length > 1 ? arr.filter((_, idx) => idx !== i) : arr); setFaixas((arr) => arr.length > 1 ? arr.filter((_, idx) => idx !== i) : arr); }
   function save() {
-    const clean = members.map((m) => m.trim()).filter(Boolean);
-    if (!clean.length) { showToast("Digite ao menos o nome do convidado"); return; }
-    act.addInvite({ members: clean.map((name) => ({ name, status: "pending" })), note: note.trim() });
+    const pairs = members.map((m, i) => ({ name: m.trim(), faixa: faixas[i] || "pagante" })).filter((p) => p.name);
+    if (!pairs.length) { showToast("Digite ao menos o nome do convidado"); return; }
+    act.addInvite({ members: pairs.map((p) => ({ name: p.name, status: "pending", faixa: p.faixa })), note: note.trim() });
     showToast("Convidado cadastrado ✨");
-    setMembers([""]); setNote("");
+    setMembers([""]); setNote(""); setFaixas(["pagante"]);
   }
 
   const st = inviteStats(store.invites);
@@ -105,6 +127,7 @@ function Guests({ store, act }) {
                 placeholder={i === 0 ? "Nome do convidado" : "Nome do acompanhante"}
                 onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addMember(); } }}
                 autoFocus={i === members.length - 1 && i > 0} />
+              <button type="button" onClick={() => setFaixa(i, faixas[i] === "livre" ? "pagante" : "livre")} style={{ fontSize: "0.75rem", padding: "4px 10px", borderRadius: 20, border: "1px solid var(--accent-hex)", background: faixas[i] === "livre" ? "var(--accent-soft)" : "none", color: "var(--accent-hex)", cursor: "pointer", whiteSpace: "nowrap" }}>{faixas[i] === "livre" ? "< 10 anos" : "Pagante"}</button>
               {members.length > 1 && (
                 <button className="icon-btn" onClick={() => removeMember(i)} title="Remover"><TrashIcon /></button>
               )}
@@ -121,7 +144,7 @@ function Guests({ store, act }) {
 
       {/* ---- lista de convites ---- */}
       <div className="invite-list">
-        <div className="dash-section-title"><h3>Convidados</h3><span className="chip">{st.going} vão · {st.pending} aguardando</span></div>
+        <div className="dash-section-title"><h3>Convidados</h3><div style={{ display: "flex", gap: 8, alignItems: "center" }}><span className="chip">{st.going} vão · {st.pending} aguardando</span><button className="btn btn-ghost" style={{ minHeight: 36, padding: "7px 14px", fontSize: "0.82rem" }} onClick={() => exportCSV(store.invites)}>↓ Exportar Excel</button></div></div>
         {store.invites.length === 0 && <div className="empty">Nenhum convidado cadastrado ainda. Use o formulário ao lado.</div>}
         {store.invites.map((iv) => {
           const going = iv.members.filter((m) => m.status === "yes").length;
@@ -142,7 +165,7 @@ function Guests({ store, act }) {
               <div className="ic-members">
                 {iv.members.map((m, i) => (
                   <div key={i} className={"ic-member s-" + m.status}>
-                    <span className="icm-name">{m.name}</span>
+                    <span className="icm-name">{m.name}{m.faixa === "livre" && <span style={{ marginLeft: 6, fontSize: "0.7rem", background: "var(--accent-soft)", color: "var(--accent-hex)", borderRadius: 10, padding: "1px 7px" }}>{"< 10 anos"}</span>}</span>
                     <div className="confirm-toggle sm" role="radiogroup">
                       {["yes", "no", "pending"].map((s) => (
                         <button key={s} type="button" className={"ct-opt " + s + (m.status === s ? " on" : "")}
