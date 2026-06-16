@@ -33,13 +33,10 @@ function Nav({ theme, onToggleTheme, onDashboard }) {
         <a href="#presentes">Presentes</a>
         <a href="#mural">Mural</a>
       </div>
-      <div className="nav-tools">
-        <MusicButton />
-        <button className="mode-toggle" onClick={onToggleTheme} aria-label="Alternar tema" title={theme === "dark" ? "Modo prata" : "Modo vinho"}>
-          {theme === "dark" ? "☾" : "☀"}
-        </button>
+      <div className="nav-tools">
+        
         <a href="#rsvp" className="btn btn-silver" style={{ minHeight: 46, padding: "11px 20px", color: "rgb(18, 30, 57)" }}>Confirmar</a>
-        <button className="mode-toggle" onClick={onDashboard} aria-label="Área da Manu" title="Área da Manu"><PocketWatch size={20} /></button>
+        <button className="mode-toggle" onClick={onDashboard} aria-label="Área da Manu" title="Área da Manu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></button>
       </div>
     </nav>);
 
